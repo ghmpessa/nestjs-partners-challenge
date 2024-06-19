@@ -1,0 +1,8 @@
+services:
+ db:
+  image: mysql:8.0.30-debian
+  environment: 
+    MYSQL_ROOT_PASSWORD: root
+    MYQSL_DATABASE: nest
+  ports:
+    - 3318:3318
