@@ -8,7 +8,12 @@ export class EventsService {
   constructor(private readonly prismaService: PrismaService) { }
 
   create(createEventDto: CreateEventDto) {
-    return 'This action adds a new event';
+    return this.prismaService.event.create({
+      data: {
+        ...createEventDto,
+        date: new Date(createEventDto.date),
+      }
+    });
   }
 
   findAll() {
