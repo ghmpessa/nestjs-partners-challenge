@@ -21,4 +21,20 @@ model Event {
   price       Float
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
+  Spot        Spot[]
+}
+
+model Spot {
+  id        String     @id @default(uuid())
+  name      String     @db.VarChar(255)
+  eventId   String
+  status    SpotStatus
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
+  Event     Event      @relation(fields: [eventId], references: [id])
+}
+
+enum SpotStatus {
+  available
+  reserved
 }
