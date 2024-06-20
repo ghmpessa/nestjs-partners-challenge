@@ -24,7 +24,7 @@ Content-Type: application/json
 
 {
   "name": "The Eras Tour",
-  "date": "2023-01-01T00:00:00",
+  "date": "{{$datetime iso8601}}",
   "description": "Tinhosa's show",
   "price": 1000000000000000000000
 }
