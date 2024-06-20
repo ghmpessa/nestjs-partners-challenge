@@ -5,4 +5,4 @@ services:
     MYSQL_ROOT_PASSWORD: root
     MYQSL_DATABASE: nest
   ports:
-    - 3318:3318
+    - 3306:3306
