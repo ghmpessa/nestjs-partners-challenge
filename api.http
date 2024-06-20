@@ -17,3 +17,14 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/events/{{eventId}}
+
+###
+PATCH  http://localhost:3000/events/{{eventId}}
+Content-Type: application/json
+
+{
+  "name": "The Eras Tour",
+  "date": "2023-01-01T00:00:00",
+  "description": "Tinhosa's show",
+  "price": 1000000000000000000000
+}
