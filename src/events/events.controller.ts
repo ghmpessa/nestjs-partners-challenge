@@ -28,6 +28,9 @@ export class EventsController {
   }
 
   @Patch(':id')
+  @UsePipes(new ValidationPipe({
+    errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+  }))
   update(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto) {
     return this.eventsService.update(id, updateEventDto);
   }
