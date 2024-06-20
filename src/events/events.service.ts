@@ -40,7 +40,15 @@ export class EventsService {
     });
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} event`;
+  async remove(id: string) {
+    const event = await this.findOne(id);
+
+    if (!event) throw new HttpException(`ID ${id} not found`, HttpStatus.NOT_FOUND);
+
+    return this.prismaService.event.delete({
+      where: {
+        id
+      }
+    });
   }
 }
