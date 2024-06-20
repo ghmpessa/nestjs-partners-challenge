@@ -6,8 +6,8 @@ POST http://localhost:3000/events
 Content-Type: application/json
 
 {
-  "name": "Event 2",
-  "description": "Event description 2",
+  "name": "Event 10",
+  "description": "Event description 10",
   "date": "{{$datetime iso8601}}",
   "price": 100
 }
@@ -28,3 +28,6 @@ Content-Type: application/json
   "description": "Tinhosa's show",
   "price": 1000000000000000000000
 }
+
+###
+DELETE http://localhost:3000/events/{{eventId}}
