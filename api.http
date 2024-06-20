@@ -1,1 +1,12 @@
 GET http://localhost:3000/events
+
+###
+POST http://localhost:3000/events
+Content-Type: application/json
+
+{
+  "name": "Event",
+  "description": "Event description",
+  "date": "{{$datetime iso8601}}",
+  "price": 100
+}
