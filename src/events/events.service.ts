@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -7,8 +7,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class EventsService {
   constructor(private readonly prismaService: PrismaService) { }
 
-  create(createEventDto: CreateEventDto) {
-    return this.prismaService.event.create({
+  async create(createEventDto: CreateEventDto) {
+    return await this.prismaService.event.create({
       data: {
         ...createEventDto,
         date: new Date(createEventDto.date),
@@ -16,22 +16,26 @@ export class EventsService {
     });
   }
 
-  findAll() {
-    return this.prismaService.event.findMany();
+  async findAll() {
+    return await this.prismaService.event.findMany();
   }
 
-  findOne(id: string) {
-    return this.prismaService.event.findUnique({
+  async findOne(id: string) {
+    return await this.prismaService.event.findUnique({
       where: { id }
     });
   }
 
-  update(id: string, updateEventDto: UpdateEventDto) {
+  async update(id: string, updateEventDto: UpdateEventDto) {
+    const currentEvent = await this.findOne(id);
+
+    if (!currentEvent) throw new HttpException(`ID ${id} not found`, HttpStatus.NOT_FOUND);
+
     return this.prismaService.event.update({
       where: { id },
       data: {
+        ...currentEvent,
         ...updateEventDto,
-        date: new Date(updateEventDto.date),
       }
     });
   }
