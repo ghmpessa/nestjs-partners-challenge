@@ -26,6 +26,9 @@ export class SpotsController {
   }
 
   @Patch(':id')
+  @UsePipes(new ValidationPipe({
+    errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+  }))
   update(@Param('eventId') eventId: string, @Param('id') id: string, @Body() updateSpotDto: UpdateSpotDto) {
     return this.spotsService.update(eventId, id, updateSpotDto);
   }
