@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, HttpStatus, HttpCode } from '@nestjs/common';
 import { SpotsService } from './spots.service';
 import { CreateSpotDto } from './dto/create-spot.dto';
 import { UpdateSpotDto } from './dto/update-spot.dto';
@@ -33,6 +33,7 @@ export class SpotsController {
     return this.spotsService.update(eventId, id, updateSpotDto);
   }
 
+  @HttpCode(204)
   @Delete(':id')
   remove(@Param('eventId') eventId: string, @Param('id') id: string) {
     return this.spotsService.remove(eventId, id);
