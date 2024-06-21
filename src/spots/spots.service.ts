@@ -19,7 +19,11 @@ export class SpotsService {
   }
 
   findAll(eventId: string) {
-    return `This action returns all spots`;
+    return this.prismaService.spot.findMany({
+      where: {
+        eventId
+      }
+    });
   }
 
   findOne(eventId: string, id: string) {
