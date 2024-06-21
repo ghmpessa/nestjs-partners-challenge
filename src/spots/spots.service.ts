@@ -27,19 +27,20 @@ export class SpotsService {
   }
 
   async findOne(eventId: string, id: string) {
-    return await this.prismaService.spot.findUnique({
+    const spot = await this.prismaService.spot.findUnique({
       where: {
         id,
         eventId,
       }
     });
+
+    if (!spot) throw new HttpException(`Spot with ID ${id} not found`, HttpStatus.NOT_FOUND,);
+
+    return spot;
   }
 
   async update(eventId: string, id: string, updateSpotDto: UpdateSpotDto) {
     const spot = await this.findOne(eventId, id);
-
-    if (!spot) throw new HttpException(`Spot with ID ${id} not found`, HttpStatus.NOT_FOUND,);
-
     return await this.prismaService.spot.update({
       where: {
         id,
@@ -54,7 +55,13 @@ export class SpotsService {
     });
   }
 
-  remove(eventId: string, id: string) {
-    return `This action removes a #${id} spot`;
+  async remove(eventId: string, id: string) {
+    const spot = await this.findOne(eventId, id);
+    return await this.prismaService.spot.delete({
+      where: {
+        id,
+        eventId,
+      }
+    });
   }
 }
