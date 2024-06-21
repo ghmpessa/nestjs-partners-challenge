@@ -32,7 +32,7 @@ export class SpotsService {
         id,
         eventId,
       }
-    });;
+    });
   }
 
   update(eventId: string, id: string, updateSpotDto: UpdateSpotDto) {
