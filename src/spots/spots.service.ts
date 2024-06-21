@@ -27,7 +27,12 @@ export class SpotsService {
   }
 
   findOne(eventId: string, id: string) {
-    return `This action returns a #${id} spot`;
+    return this.prismaService.spot.findUnique({
+      where: {
+        id,
+        eventId,
+      }
+    });;
   }
 
   update(eventId: string, id: string, updateSpotDto: UpdateSpotDto) {
