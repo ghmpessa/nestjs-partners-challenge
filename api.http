@@ -41,7 +41,7 @@ POST http://localhost:3000/events/{{eventId}}/spots
 Content-Type: application/json
 
 {
-  "name": "A2"
+  "name": "G18"
 }
 
 ###
@@ -55,4 +55,8 @@ PATCH  http://localhost:3000/events/{{eventId}}/spots/{{spotId}}
 Content-Type: application/json
 
 {
+  "name": "B10"
 }
+
+###
+DELETE http://localhost:3000/events/{{eventId}}/spots/{{spotId}}
