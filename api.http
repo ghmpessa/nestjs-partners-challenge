@@ -41,7 +41,7 @@ POST http://localhost:3000/events/{{eventId}}/spots
 Content-Type: application/json
 
 {
-  "name": "J23"
+  "name": "G6"
 }
 
 ###
@@ -68,7 +68,7 @@ Content-Type: application/json
 X-Api-Token: 123
 
 {
-  "spots": ["{{ spotName }}"],
+  "spots": ["{{spotName}}"],
   "ticket_kind": "full",
   "email": "email@email.com"
 }
