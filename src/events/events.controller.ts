@@ -14,6 +14,7 @@ import {
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
+import { ReserveSpotDto } from './dto/reserve-spot.dto';
 
 
 
@@ -51,5 +52,16 @@ export class EventsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.eventsService.remove(id);
+  }
+
+  @UsePipes(new ValidationPipe({
+    errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+  }))
+  @Post(':id/reserve')
+  reserveSpot(@Param('id') id: string, @Body() reserveSpotDto: ReserveSpotDto) {
+    return this.eventsService.reserveSpot({
+      eventId: id,
+      ...reserveSpotDto,
+    })
   }
 }
