@@ -6,8 +6,8 @@ POST http://localhost:3000/events
 Content-Type: application/json
 
 {
-  "name": "Event 10",
-  "description": "Event description 10",
+  "name": "Event 100",
+  "description": "Event description 100",
   "date": "{{$datetime iso8601}}",
   "price": 100
 }
@@ -41,11 +41,12 @@ POST http://localhost:3000/events/{{eventId}}/spots
 Content-Type: application/json
 
 {
-  "name": "G18"
+  "name": "G22"
 }
 
 ###
 @spotId = {{ createSpot.response.body.id }}
+@spotName = {{ createSpot.response.body.name }}
 
 ###
 GET http://localhost:3000/events/{{eventId}}/spots/{{spotId}}
@@ -60,3 +61,14 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/events/{{eventId}}/spots/{{spotId}}
+
+###
+POST http://localhost:3000/events/{{eventId}}/reserve
+Content-Type: application/json
+# X-Api-Token: 123
+
+{
+  "spots": ["{{ spotName }}"],
+  "ticket_kind": "full",
+  "email": "email@email.com"
+}
