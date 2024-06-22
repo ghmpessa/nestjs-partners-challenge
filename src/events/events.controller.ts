@@ -9,12 +9,14 @@ import {
   HttpStatus,
   UsePipes,
   ValidationPipe,
-  HttpCode
+  HttpCode,
+  UseGuards
 } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { ReserveSpotDto } from './dto/reserve-spot.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 
 
@@ -54,6 +56,7 @@ export class EventsController {
     return this.eventsService.remove(id);
   }
 
+  @UseGuards(AuthGuard)
   @UsePipes(new ValidationPipe({
     errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
   }))
