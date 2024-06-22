@@ -25,8 +25,8 @@ Content-Type: application/json
 {
   "name": "The Eras Tour",
   "date": "{{$datetime iso8601}}",
-  "description": "Tinhosa's show",
-  "price": 1000000000000000000000
+  "description": "Loirinha's show",
+  "price": 10000
 }
 
 ###
@@ -41,7 +41,7 @@ POST http://localhost:3000/events/{{eventId}}/spots
 Content-Type: application/json
 
 {
-  "name": "G22"
+  "name": "J23"
 }
 
 ###
@@ -65,7 +65,7 @@ DELETE http://localhost:3000/events/{{eventId}}/spots/{{spotId}}
 ###
 POST http://localhost:3000/events/{{eventId}}/reserve
 Content-Type: application/json
-# X-Api-Token: 123
+X-Api-Token: 123
 
 {
   "spots": ["{{ spotName }}"],
