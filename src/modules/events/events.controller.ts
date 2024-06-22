@@ -10,13 +10,15 @@ import {
   UsePipes,
   ValidationPipe,
   HttpCode,
-  UseGuards
+  UseGuards,
+  UseFilters
 } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { ReserveSpotDto } from './dto/reserve-spot.dto';
 import { AuthGuard } from '../auth/auth.guard';
+import { ReservedSpotsExceptionFilter } from 'src/common/filters/http-exception.filter';
 
 
 
@@ -60,6 +62,7 @@ export class EventsController {
   @UsePipes(new ValidationPipe({
     errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
   }))
+  @UseFilters(ReservedSpotsExceptionFilter)
   @Post(':id/reserve')
   reserveSpot(@Param('id') id: string, @Body() reserveSpotDto: ReserveSpotDto) {
     return this.eventsService.reserveSpot({
