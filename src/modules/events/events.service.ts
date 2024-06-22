@@ -68,7 +68,20 @@ export class EventsService {
       const foundSpotsName = spots.map((spot) => spot.name);
       const notFoundSpotsNames = reserveSpotDto.spots.filter((spotName) => !foundSpotsName.includes(spotName));
 
-      throw new Error(`Spots ${notFoundSpotsNames.join(', ')} not found`);
+      throw new HttpException(`Spots not exists: ${notFoundSpotsNames.join(', ')}`, HttpStatus.NOT_FOUND);
+    }
+
+    const reservedSpots = await this.prismaService.spot.findMany({
+      where: {
+        id: {
+          in: spots.map((spot) => spot.id)
+        },
+        status: TicketStatus.reserved
+      }
+    })
+
+    if (reservedSpots.length > 0) {
+      throw new HttpException(`Spots ${reservedSpots.map(spot => spot.name).join(', ')} is not available for reservation`, HttpStatus.BAD_REQUEST);
     }
 
     try {
@@ -114,10 +127,10 @@ export class EventsService {
         switch (error.code) {
           case 'P2002':
           case 'P2034':
-            throw new Error('Some spots are already reserved');
+            throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
         }
 
-        throw error;
+        throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
       }
 
     }
